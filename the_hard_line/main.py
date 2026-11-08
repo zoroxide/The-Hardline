@@ -587,14 +587,14 @@ async def api_search(
             rows = await conn.fetch(sql, variants)
 
         elif detected_type == "name":
-            # Fast bounded prefix/match search on indexed or prefix patterns
-            # Using exact match or prefix match with LIMIT 50 to maintain <50ms query time
+            # Fast B-Tree index pattern scan on lower(fname)
+            lower_q = query.lower()
             sql = """
                 SELECT * FROM users 
-                WHERE fname ILIKE $1 OR sname ILIKE $1 OR unknown_7 ILIKE $1
+                WHERE lower(fname) LIKE $1 
                 LIMIT 50;
             """
-            rows = await conn.fetch(sql, f"{query}%")
+            rows = await conn.fetch(sql, f"{lower_q}%")
 
     t1 = time.time()
     duration_ms = round((t1 - t0) * 1000, 2)
