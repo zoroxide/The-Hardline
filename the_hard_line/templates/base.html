@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}The Hardline{% endblock %}</title>
+  <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+  <link rel="stylesheet" href="/static/styles.css">
+  {% block head_extra %}{% endblock %}
+</head>
+<body class="{% block body_class %}dashboard-page{% endblock %}">
+  {# Gotham background sky, moon, spotlight and Batman silhouette #}
+  {% include "components/skyline.html" %}
+
+  {# Main Page Content #}
+  {% block content %}{% endblock %}
+
+  {# Page-specific scripts #}
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}The Hardline{% endblock %}
+{% block body_class %}dashboard-page{% endblock %}
+
+{% block content %}
+<div class="hardline-shell">
+  <div class="hardline-container">
+    {# Header / Navigation #}
+    {% include "components/navbar.html" %}
+
+    {# Search Controls #}
+    <div class="hardline-search-panel">
+      <div class="hardline-mode-selector">
+        <button class="hardline-mode-btn active" data-mode="url" onclick="setMode('url')">PROFILE URL</button>
+        <button class="hardline-mode-btn" data-mode="auto" onclick="setMode('auto')">AUTO DETECT</button>
+        <button class="hardline-mode-btn" data-mode="fbid" onclick="setMode('fbid')">FBID</button>
+        <button class="hardline-mode-btn" data-mode="phone" onclick="setMode('phone')">PHONE</button>
+        <button class="hardline-mode-btn" data-mode="name" onclick="setMode('name')">NAME</button>
+      </div>
+
+      <div class="hardline-search-row">
+        <input 
+          type="text" 
+          id="queryInput" 
+          class="hardline-search-input" 
+          placeholder="PASTE FACEBOOK PROFILE URL (e.g. facebook.com/share/... or facebook.com/username)"
+          autofocus
+        >
+        <button class="hardline-search-btn" id="searchBtn" onclick="performSearch()">SEARCH</button>
+      </div>
+      <div class="hardline-hint" id="modeHint">
+        Paste any Facebook profile URL (short share link, username link, or profile.php). Press ENTER to resolve.
+      </div>
+    </div>
+
+    {# Search Status #}
+    <div class="hardline-status-bar" id="statusBar">
+      <span id="statusMessage">AWAITING QUERY INPUT</span>
+      <span id="statusTime"></span>
+    </div>
+
+    {# Results & Errors #}
+    <div id="errorContainer"></div>
+    <div id="resultsContainer" class="hardline-results-container">
+      <div class="hardline-empty-state">NO QUERY SUBMITTED. ENTER SEARCH TARGET ABOVE.</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/app.js"></script>
+{% endblock %}
